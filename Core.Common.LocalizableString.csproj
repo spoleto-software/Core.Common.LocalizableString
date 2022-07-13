@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+        <AssemblyName>Core.Common.LocalizableString</AssemblyName>
+        <PackageId>Spoleto.Core.Common.LocalizableString</PackageId>
+        <RootNamespace>Core.Common.LocalizableString</RootNamespace>
+        <Title>Core.Common.LocalizableString</Title>
+        <Description>Functionality to store multilingual values in String. The main object is LocalizableString. It has corresponding JSON converters.</Description>
+        <Copyright>Copyright © 2022</Copyright>
+        <Authors>SPOLETO Software developers</Authors>
+        <Company>SPOLETO Software Development</Company>
+        <PackageLicenseUrl></PackageLicenseUrl>
+        <PackageProjectUrl>https://spoleto-software.ru</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/spoleto-software/core.common.localizablestring</RepositoryUrl>
+        <PackageTags>Localization, Multi-language, Localize, Language, Localizable</PackageTags>
+        <PackageReleaseNotes></PackageReleaseNotes>
+        <SignAssembly>False</SignAssembly>
+        <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+        <Version>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd"))</Version>
+        <AssemblyVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd"))</AssemblyVersion>
+        <FileVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd"))</FileVersion>
+        <Configurations>Debug;Release;DebugWeb;ReleaseWeb</Configurations>
+    </PropertyGroup>
+
+    <!-- Include symbols for debugging -->
+    <PropertyGroup>
+        <!-- This command creates external file (snupkg) with .pdb next to nuget file (nupkg) -->
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <NoWarn />
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
+        <!-- Properties for netstandard -->
+        <PackageReference Include="System.Text.Json" Version="4.7.0" />
+    </ItemGroup>
+</Project>
