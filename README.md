@@ -1,7 +1,7 @@
-# Core.Common.Localizablestring
+# Core.Common.LocalizableString
 Functionality to store multilingual values in String. The main object is `LocalizableString`. It has corresponding JSON converters.
 
-This library helps make your application multilingual.
+This library helps make your application multilingual!
 
 The example:
 ```
