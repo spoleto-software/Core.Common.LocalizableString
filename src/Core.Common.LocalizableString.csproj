@@ -7,7 +7,6 @@
         <RootNamespace>Core.Common.LocalizableString</RootNamespace>
         <Title>Core.Common.LocalizableString</Title>
         <Description>Functionality to store multilingual values in String. The main object is LocalizableString. It has corresponding JSON converters.</Description>
-        <Copyright>Copyright © 2022</Copyright>
         <Authors>SPOLETO Software developers</Authors>
         <Company>SPOLETO Software Development</Company>
         <PackageLicenseUrl></PackageLicenseUrl>
@@ -17,9 +16,10 @@
         <PackageReleaseNotes></PackageReleaseNotes>
         <SignAssembly>False</SignAssembly>
         <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-        <Version>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd"))</Version>
-        <AssemblyVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd"))</AssemblyVersion>
-        <FileVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd"))</FileVersion>
+		<Copyright>Copyright © $([System.DateTime]::Now.Year.ToString())</Copyright>
+		<Version>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</Version>
+		<AssemblyVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</AssemblyVersion>
+		<FileVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</FileVersion>
     </PropertyGroup>
 
     <!-- Include symbols for debugging -->
@@ -50,9 +50,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="README.md">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 </Project>
