@@ -3,23 +3,11 @@
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
         <AssemblyName>Core.Common.LocalizableString</AssemblyName>
-        <PackageId>Spoleto.Core.Common.LocalizableString</PackageId>
         <RootNamespace>Core.Common.LocalizableString</RootNamespace>
         <Title>Core.Common.LocalizableString</Title>
-        <Description>Functionality to store multilingual values in String. The main object is LocalizableString. It has corresponding JSON converters.</Description>
-        <Authors>SPOLETO Software developers</Authors>
-        <Company>SPOLETO Software Development</Company>
-        <PackageLicenseUrl></PackageLicenseUrl>
-        <PackageProjectUrl>https://spoleto-software.ru</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/spoleto-software/core.common.localizablestring</RepositoryUrl>
-        <PackageTags>Localization, Multi-language, Localize, Language, Localizable</PackageTags>
-        <PackageReleaseNotes></PackageReleaseNotes>
-        <SignAssembly>False</SignAssembly>
-        <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-		<Copyright>Copyright © $([System.DateTime]::Now.Year.ToString())</Copyright>
-		<Version>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</Version>
-		<AssemblyVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</AssemblyVersion>
-		<FileVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</FileVersion>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	    <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <!-- Include symbols for debugging -->
@@ -29,19 +17,30 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
-    <PropertyGroup>
+	<!-- Package info -->
+	<PropertyGroup>
+		<Product>LocalizableString library</Product>
+		<Description>Functionality to store multilingual values in String. The main object is LocalizableString. It has corresponding JSON converters.</Description>
+		<PackageId>Spoleto.Core.Common.LocalizableString</PackageId>
+		<Authors>Spoleto-Software</Authors>
+		<Company>SPOLETO Software Development</Company>
+		<PackageProjectUrl>https://spoleto.ru</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/spoleto-software/core.common.localizablestring</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>Localization, Multi-language, Localize, Language, Localizable</PackageTags>
+		<Copyright>Copyright © $([System.DateTime]::Now.Year.ToString())</Copyright>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<Version>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</Version>
+		<AssemblyVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</AssemblyVersion>
+		<FileVersion>$([System.DateTime]::Now.AddYears(-2020).Year.ToString()).$([System.DateTime]::Now.ToString("MM.dd.HHmm"))</FileVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
         <NoWarn />
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <WarningsAsErrors />
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-        <RepositoryType>git</RepositoryType>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>        
-        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
