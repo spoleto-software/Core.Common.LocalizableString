@@ -29,6 +29,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>MainIcon.jpg</PackageIcon>		
 		<PackageTags>Localization, Multi-language, Localize, Language, Localizable</PackageTags>
 		<Copyright>Copyright © $([System.DateTime]::Now.Year.ToString())</Copyright>
 		<PackageReleaseNotes></PackageReleaseNotes>
@@ -50,5 +51,12 @@
 
     <ItemGroup>
 		<None Include="..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\MainIcon.jpg">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 </Project>
