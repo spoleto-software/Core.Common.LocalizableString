@@ -616,14 +616,14 @@ namespace Core.Common
 
             foreach (var match in matches.Cast<Match>().Where(match => match.Value.Contains(codeLanguage)))
             {
-                return s.Substring(match.Index + 4, s.IndexOf(EndPattern, match.Index + 4) - match.Index - 4);
+                return s.Substring(match.Index + 4, s.IndexOf(EndPattern, match.Index + 4, StringComparison.Ordinal) - match.Index - 4);
             }
 
             if (getFirstValueIfNotExists)
             {
                 foreach (var match in matches.Cast<Match>().OrderBy(m => (m.Value.Contains(DefaultLanguageKey) ? 1 : 2)))
                 {
-                    return s.Substring(match.Index + 4, s.IndexOf(EndPattern, match.Index + 4) - match.Index - 4);
+                    return s.Substring(match.Index + 4, s.IndexOf(EndPattern, match.Index + 4, StringComparison.Ordinal) - match.Index - 4);
                 }
             }
 
@@ -696,7 +696,7 @@ namespace Core.Common
 
                 foreach (var match in matches.Cast<Match>().Where(match => match.Value.Contains(languageKey)))
                 {
-                    return _stringOriginal.Substring(match.Index + 4, _stringOriginal.IndexOf(EndPattern, match.Index + 4) - match.Index - 4);
+                    return _stringOriginal.Substring(match.Index + 4, _stringOriginal.IndexOf(EndPattern, match.Index + 4, StringComparison.Ordinal) - match.Index - 4);
                 }
             }
 
