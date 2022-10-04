@@ -16,11 +16,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj
+      run: dotnet restore
     - name: Build
-      run: dotnet build src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
+    - name: Test with the dotnet CLI
+      run: dotnet test src/Core.Common.LocalizableString.Tests/Core.Common.LocalizableString.Tests.csproj --no-restore --verbosity normal
     - name: Publish to Nuget
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:

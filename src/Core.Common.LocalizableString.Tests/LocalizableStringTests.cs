@@ -17,7 +17,7 @@
             var ls = new LocalizableString(ruText);
 
             // Assert
-            Assert.AreEqual(ruText, ls.OriginalString);
+            Assert.AreNotEqual(ruText, ls.OriginalString);
             Assert.AreEqual(ruText, ls.StringCurrent);
         }
 
