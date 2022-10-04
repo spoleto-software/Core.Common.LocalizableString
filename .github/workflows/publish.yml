@@ -3,6 +3,8 @@ name: Publish Packages
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'src/Core.Common.LocalizableString.Tests/**'
 
 jobs:
   build:
@@ -16,14 +18,14 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj --configuration Release --no-restore
     - name: Publish to Nuget
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: src/Core.Common.LocalizableString.csproj
+          PROJECT_FILE_PATH: src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj
           # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
