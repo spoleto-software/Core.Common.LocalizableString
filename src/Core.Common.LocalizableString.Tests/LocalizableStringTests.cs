@@ -1,6 +1,9 @@
 ﻿namespace Core.Common.LocalizableString_Tests
 {
-    public class Tests
+    /// <summary>
+    /// Tests for <see cref="LocalizableString"/>.
+    /// </summary>
+    public class LocalizableStringTests
     {
         [SetUp]
         public void Setup()
