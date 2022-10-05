@@ -4,12 +4,12 @@ name: Run Tests By Logic
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - 'src/**.Tests/**'
-
+    paths:
+      - 'src/**'
+      - '!src/**.Tests/**'
+      
 jobs:
-  build:
-
+  build: 
     runs-on: ubuntu-latest
 
     steps:
