@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace Core.Common
 {
     /// <summary>
-    /// Multi-languages string
+    /// Multi-languages string.
     /// </summary>
     [Serializable]
     [DataContract]
@@ -17,12 +17,16 @@ namespace Core.Common
     {
         [IgnoreDataMember]
         private string _stringCurrent;
+        
         [DataMember(Name = "StringOriginal")]
         private string _stringOriginal;
+        
         [IgnoreDataMember]
-        private string _currentLanguageKey;//ключ текущего языка
+        private string _currentLanguageKey;// key for the current language
+        
         [IgnoreDataMember]
         private bool _haveMultipleLanguages;
+        
         [NonSerialized]
         [IgnoreDataMember]
         private List<string> _languages;
