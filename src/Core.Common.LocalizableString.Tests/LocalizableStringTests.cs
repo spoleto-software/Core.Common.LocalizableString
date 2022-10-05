@@ -18,7 +18,7 @@
 
             // Assert
             Assert.AreEqual(ruText, ls.OriginalString);
-            Assert.AreEqual(ruText, ls.StringCurrent);
+            Assert.AreNotEqual(ruText, ls.StringCurrent);
         }
 
         [Test]
