@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace Core.Common
 {
     /// <summary>
-    /// Multi-languages string.
+    /// The multi-languages string.
     /// </summary>
     [Serializable]
     [DataContract]
@@ -603,19 +603,22 @@ namespace Core.Common
 
 
         /// <summary>
+        /// Sets the text for the current language.
+        /// </summary>
+        /// <remarks>
         /// Метод для установки значения в указанном языке.
         /// Строка всегда дополняется штуками вроде "\u0010", даже если в строке присутствует всего один язык.
-        /// </summary>
-        /// <param name="text"></param>
+        /// </remarks>
+        /// <param name="text">The text.</param>
         public void SetCurrentString(string text)
         {
             SetString(CurrentLanguageKey, text);
         }
 
         /// <summary>
-        /// Get current string by language key
+        /// Get current string for the specified language key.
         /// </summary>
-        /// <param name="languageKey"></param>
+        /// <param name="languageKey">The specified language key.</param>
         public string GetCurrentString(string languageKey)
         {
             if (!String.IsNullOrEmpty(_stringOriginal))
@@ -632,9 +635,9 @@ namespace Core.Common
         }
 
         /// <summary>
-        /// Language codes in current string
+        /// Language codes in the current string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Array of language codes.</returns>
         [IgnoreDataMember]
         public List<String> Languages
         {
