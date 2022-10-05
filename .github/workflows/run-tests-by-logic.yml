@@ -11,7 +11,8 @@ on:
     branches: [ main ]
       
 jobs:
-  build: 
+  Build-Tests:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +31,6 @@ jobs:
       uses: dorny/test-reporter@v1
       if: success() || failure()    # run this step even if previous step failed
       with:
-        name: Unit tests
+        name: Test results
         path: '**/test-results.trx'
         reporter: dotnet-trx
