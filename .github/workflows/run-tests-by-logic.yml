@@ -7,6 +7,8 @@ on:
     paths:
       - 'src/**'
       - '!src/**.Tests/**'
+  pull_request:
+    branches: [ main ]
       
 jobs:
   build: 
@@ -23,4 +25,11 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test with the dotnet CLI
-      run: dotnet test src/Core.Common.LocalizableString.Tests/Core.Common.LocalizableString.Tests.csproj --no-restore
+      run: dotnet test --no-restore --no-build --logger "trx;LogFileName=test-results.trx"
+    - name: Tests report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: Unit tests
+        path: '**/test-results.trx'
+        reporter: dotnet-trx
