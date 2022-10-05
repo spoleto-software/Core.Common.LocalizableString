@@ -13,3 +13,7 @@ var multiString = (LocalizableString) rawString;
 var ruString = multiString.GetCurrentString("ru"); // gets Russian translation
 var enString = multiString.GetCurrentString("en"); // gets English translation
 ```
+## More examples
+You can find more examples in the unit tests:
+
+https://github.com/spoleto-software/Core.Common.LocalizableString/tree/main/src/Core.Common.LocalizableString.Tests
