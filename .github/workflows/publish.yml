@@ -2,12 +2,8 @@ name: Publish Packages
 
 on:
     workflow_run:
-        workflows: ["Run Tests"]
+        workflows: ["Run Tests By Logic"]
         branches: [ "main" ]
-        path:
-          - 'src/**'
-        paths-ignore:
-          - 'src/**.Tests/**'
         types: 
             - completed
 

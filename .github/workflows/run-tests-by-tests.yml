@@ -1,10 +1,11 @@
-name: Run Tests
+# Run these tests if tests were changed.
+name: Run Tests By Tests
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'src/**'
+      - 'src/**.Tests/**'
 
 jobs:
   build:
