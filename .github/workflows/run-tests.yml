@@ -1,0 +1,25 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'src/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test with the dotnet CLI
+      run: dotnet test src/Core.Common.LocalizableString.Tests/Core.Common.LocalizableString.Tests.csproj --no-restore
