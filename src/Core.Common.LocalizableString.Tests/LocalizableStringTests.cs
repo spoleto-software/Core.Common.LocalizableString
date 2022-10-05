@@ -17,8 +17,11 @@
             var ls = new LocalizableString(ruText);
 
             // Assert
-            Assert.AreEqual(ruText, ls.OriginalString);
-            Assert.AreEqual(ruText, ls.StringCurrent);
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls.OriginalString, Is.EqualTo(ruText));
+                Assert.That(ls.StringCurrent, Is.EqualTo(ruText));
+            });
         }
 
         [Test]
@@ -31,8 +34,11 @@
             var ls = new LocalizableString(text);
 
             // Assert
-            Assert.AreEqual(text, ls.OriginalString);
-            Assert.That(text, Does.Contain(ls.StringCurrent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls.OriginalString, Is.EqualTo(text));
+                Assert.That(text, Does.Contain(ls.StringCurrent));
+            });
         }
 
         [Test]
@@ -51,8 +57,11 @@
             var ls = new  LocalizableString(dict);
 
             // Assert
-            Assert.AreEqual(ruText, ls.GetCurrentString("ru"));
-            Assert.AreEqual(enText, ls.GetCurrentString("en"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls.GetCurrentString("ru"), Is.EqualTo(ruText));
+                Assert.That(ls.GetCurrentString("en"), Is.EqualTo(enText));
+            });
         }
     }
 }
