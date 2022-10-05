@@ -66,5 +66,45 @@
                 Assert.That(ls.GetCurrentString("en"), Is.EqualTo(enText));
             });
         }
+
+        [Test]
+        public void StringToLocalizableString()
+        {
+            // Arrange
+            var ruText = "Текст на русском";
+
+            // Act
+            var ls = ruText.AsLocalizableString();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls.OriginalString, Is.EqualTo(ruText));
+                Assert.That(ls.StringCurrent, Is.EqualTo(ruText));
+            });
+        }
+
+        [Test]
+        public void DictionaryToLocalizableString()
+        {
+            // Arrange
+            var ruText = "Текст на русском";
+            var enText = "Text in English";
+            var dict = new Dictionary<string, string>
+            {
+                { "ru", ruText },
+                { "en", enText }
+            };
+
+            // Act
+            var ls = dict.AsLocalizableString();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls.GetCurrentString("ru"), Is.EqualTo(ruText));
+                Assert.That(ls.GetCurrentString("en"), Is.EqualTo(enText));
+            });
+        }
     }
 }
