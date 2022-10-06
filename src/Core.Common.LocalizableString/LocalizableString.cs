@@ -56,9 +56,9 @@ namespace Core.Common
         public bool HaveMultipleLanguages => _haveMultipleLanguages;
 
         /// <summary>
-        /// Constructor
+        /// Constructor with the string argument.
         /// </summary>
-        /// <param name="originalString"></param>
+        /// <param name="originalString">The original string.</param>
         public LocalizableString(string originalString)
         {
             ProcessOriginalString(originalString);
@@ -121,7 +121,7 @@ namespace Core.Common
         /// <summary>
         /// Returns the string representation.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The string representation.</returns>
         public override string ToString()
         {
             return _stringCurrent;
