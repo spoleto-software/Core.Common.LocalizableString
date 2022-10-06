@@ -1,0 +1,16 @@
+# Run with job if LICENSE was changed.
+name: Update LICENSE
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'LICENSE'
+  pull_request:
+    branches: [ main ]
+      
+jobs:
+ on-success:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'LICENSE was changed'

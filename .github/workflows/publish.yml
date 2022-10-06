@@ -2,7 +2,7 @@ name: Publish Packages
 
 on:
     workflow_run:
-        workflows: ["Run Tests By Logic"]
+        workflows: ["Run Tests By Logic", "Update README", "Update LICENSE"]
         branches: [ "main" ]
         types: 
             - completed

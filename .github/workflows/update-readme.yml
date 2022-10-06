@@ -1,0 +1,16 @@
+# Run with job if README was changed.
+name: Update README
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'README.md'
+  pull_request:
+    branches: [ main ]
+      
+jobs:
+ on-success:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'README was changed'
