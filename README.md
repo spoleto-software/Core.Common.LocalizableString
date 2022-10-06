@@ -1,5 +1,8 @@
 # Core.Common.LocalizableString
-Functionality to store multilingual values in String. The main object is `LocalizableString`. It has corresponding JSON converters.
+Functionality to store multilingual values in String. 
+The main object is `LocalizableString`.
+This object has corresponding JSON converters based on System.Text.Json.
+Also there are available extensions to convert ``String``, ``Dictionary`` to ``LocalizableString``.
 
 This library helps make your application multilingual!
 
@@ -13,6 +16,7 @@ var multiString = (LocalizableString) rawString;
 var ruString = multiString.GetCurrentString("ru"); // gets Russian translation
 var enString = multiString.GetCurrentString("en"); // gets English translation
 ```
+
 ## More examples
 You can find more examples in the unit tests:
 
