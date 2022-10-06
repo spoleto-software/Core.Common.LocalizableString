@@ -10,7 +10,7 @@ on:
     branches: [ main ]
       
 jobs:
- on-success:
+ README:
     runs-on: ubuntu-latest
     steps:
       - run: echo 'README was changed'
