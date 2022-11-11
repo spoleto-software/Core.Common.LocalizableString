@@ -8,10 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkFlow", "WorkFlow", "{863EBC99-1EC9-4A13-881A-FCD6692F3A7A}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\publish.yml = .github\workflows\publish.yml
-		.github\workflows\run-tests-by-logic.yml = .github\workflows\run-tests-by-logic.yml
-		.github\workflows\run-tests-by-tests.yml = .github\workflows\run-tests-by-tests.yml
-		.github\workflows\update-license.yml = .github\workflows\update-license.yml
-		.github\workflows\update-readme.yml = .github\workflows\update-readme.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.LocalizableString.Tests", "src\Core.Common.LocalizableString.Tests\Core.Common.LocalizableString.Tests.csproj", "{634DBDE8-564A-4A77-B21E-F0B70831DC5A}"

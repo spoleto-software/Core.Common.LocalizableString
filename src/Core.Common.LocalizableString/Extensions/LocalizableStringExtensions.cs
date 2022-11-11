@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
@@ -91,13 +92,31 @@ namespace Core.Common
                 var dict = new OrderedDictionary();
                 foreach (var language in languages)
                 {
-                    dict[language] = localizableString.GetCurrentString(language);
+                    var currentString = localizableString.GetCurrentString(language);
+                    EnsureIsJsonCompatible(currentString, localizableString.OriginalString);
+
+                    dict[language] = currentString;
                 }
 
                 return dict;
             }
 
-            return localizableString.StringCurrent;
+            var oneLanguageString = localizableString.StringCurrent;
+            EnsureIsJsonCompatible(oneLanguageString, oneLanguageString);
+            
+            return oneLanguageString;
+        }
+
+        /// <summary>
+        /// Throws an exception if the current string is not json compatible (the string contains excess special characters used in <see cref="LocalizableString"/>).
+        /// </summary>
+        private static void EnsureIsJsonCompatible(string str, string original)
+        {
+            if (str.IndexOf(LocalizableString.StartPattern, StringComparison.Ordinal) >= 0)
+                throw new ArgumentException($"The string contains an excess {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} character in <{str}>.{Environment.NewLine}The string original: <{original}>.");
+
+            if (str.IndexOf(LocalizableString.EndPattern, StringComparison.Ordinal) >= 0)
+                throw new ArgumentException($"The string contains an excess {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} character in <{str}>.{Environment.NewLine}The string original: <{original}>.");
         }
     }
 }

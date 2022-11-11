@@ -1,30 +1,60 @@
 name: Publish Packages
 
 on:
-    workflow_run:
-        workflows: ["Run Tests By Logic", "Update README", "Update LICENSE"]
-        branches: [ "main" ]
-        types: 
-            - completed
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'src/**'
+      - 'LICENSE'
+      - 'README.md'
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build-publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+  Build-Tests-Publish:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+
+    - id: logic_modified # check if the logic or LICENCE or README.md are changed
+      uses: pheel/path-watcher-action@v1
+      with:
+          paths: 'src/Core.Common.LocalizableString/**,LICENSE,README.md'
+
+    - id: logic_tests_modified # check if the logic or tests are changed
+      uses: pheel/path-watcher-action@v1
+      with:
+          paths: 'src/Core.Common.LocalizableString/**,src/*.Tests/**'
+  
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: 6.0.x
+
     - name: Restore dependencies
-      run: dotnet restore src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj
+      run: dotnet restore
+
     - name: Build
-      run: dotnet build src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj --configuration Release --no-restore
-    - name: Publish to Nuget
-      uses: brandedoutcast/publish-nuget@v2.5.5
+      run: dotnet build --configuration Release --no-restore
+
+    - if: steps.logic_tests_modified.outputs.modified # run this step if there are changes in the logic or tests 
+      name: Test with the dotnet CLI
+      run: dotnet test --no-restore --logger "trx;LogFileName=test-results.trx"
+
+    - if: steps.logic_tests_modified.outputs.modified && ( success() || failure() ) # run this step if there are changes in the logic or tests and even previous step failed
+      name: Tests report
+      uses: dorny/test-reporter@v1.6.0
+      with:
+        name: Test results
+        path: '**/test-results.trx'
+        reporter: dotnet-trx
+
+    - if: steps.logic_modified.outputs.modified # run this step if there are changes in the logic or LICENCE or README.md
+      name: Publish to Nuget
+      uses: alirezanet/publish-nuget@v3.0.4
       with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/Core.Common.LocalizableString/Core.Common.LocalizableString.csproj
@@ -32,3 +62,7 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+          # Flag to toggle git tagging, enabled by default
+          TAG_COMMIT: false
+
+
