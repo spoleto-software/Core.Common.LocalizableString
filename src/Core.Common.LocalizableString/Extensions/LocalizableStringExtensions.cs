@@ -11,7 +11,7 @@ namespace Core.Common
     public static class LocalizableStringExtensions
     {
         /// <summary>
-        /// String AsLocalizableString
+        /// Converts string to <see cref="LocalizableString"/>.
         /// </summary>
         public static LocalizableString AsLocalizableString(this string s)
         {
@@ -19,7 +19,7 @@ namespace Core.Common
         }
 
         /// <summary>
-        /// Dictionary AsLocalizableString
+        /// Converts Dictionary to <see cref="LocalizableString"/>.
         /// </summary>
         public static LocalizableString AsLocalizableString(this Dictionary<string, string> dict)
         {
@@ -42,7 +42,7 @@ namespace Core.Common
         }
 
         /// <summary>
-        /// Dictionary AsLocalizableString
+        /// Converts Dictionary to <see cref="LocalizableString"/>.
         /// </summary>
         public static LocalizableString AsLocalizableString(this OrderedDictionary dict)
         {
@@ -66,7 +66,7 @@ namespace Core.Common
         }
 
         /// <summary>
-        /// Dictionary AsLocalizableString
+        /// Converts Dictionary to <see cref="LocalizableString"/>.
         /// </summary>
         public static LocalizableString AsLocalizableString(this IDictionary dict)
         {
@@ -82,7 +82,7 @@ namespace Core.Common
         }
 
         /// <summary>
-        /// LocalizableString AsJsonCompatible (AsDictionary or AsString)
+        /// Converts LocalizableString to json compatible object (AsDictionary or AsString).
         /// </summary>
         public static object AsJsonCompatible(this LocalizableString localizableString)
         {
