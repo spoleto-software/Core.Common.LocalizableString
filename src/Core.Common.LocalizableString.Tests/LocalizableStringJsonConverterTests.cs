@@ -30,10 +30,12 @@ namespace Core.Common.LocalizableString_Tests
             // Arrange
             var ruText = "Текст на русском";
             var enText = "Text in English";
+            var esText = "Texto en español";
             var dict = new Dictionary<string, string>
             {
                 { "ru", ruText },
-                { "en", enText }
+                { "en", enText },
+                { "es", esText }
             };
 
             // Act
@@ -46,15 +48,14 @@ namespace Core.Common.LocalizableString_Tests
             };
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
-            var description = afterJson?.Description;
+            var description = afterJson.Description;
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(afterJson, Is.Not.Null);
-                Assert.That(description, Is.Not.Null);
                 Assert.That(description.GetCurrentString("ru"), Is.EqualTo(ruText));
                 Assert.That(description.GetCurrentString("en"), Is.EqualTo(enText));
+                Assert.That(description.GetCurrentString("es"), Is.EqualTo(esText));
             });
         }
 
@@ -93,7 +94,7 @@ namespace Core.Common.LocalizableString_Tests
             };
 
             // Assert
-            //Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
             {
                 // Act
                 var ls = dict.AsLocalizableString();
@@ -104,7 +105,7 @@ namespace Core.Common.LocalizableString_Tests
                 };
 
                 var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
-            }//);
+            });
         }
 
         /// <summary>
