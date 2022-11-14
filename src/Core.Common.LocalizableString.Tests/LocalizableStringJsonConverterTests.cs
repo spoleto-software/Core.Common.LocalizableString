@@ -47,7 +47,7 @@ namespace Core.Common.LocalizableString_Tests
             };
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
             Console.WriteLine(json);
-            Console.WriteLine($"ls: <{ls}>. ls count: <{ls?.Length}>.");
+            Console.WriteLine($"ls: <{ls}>. ls count: <{ls?.OriginalString.Length}>. ls original: <{ls?.OriginalString}>.");
             Console.WriteLine($"dict: <{dict}>. dict count: <{dict?.Count}>.");
 
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
