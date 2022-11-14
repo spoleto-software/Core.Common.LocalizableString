@@ -38,15 +38,22 @@ namespace Core.Common.LocalizableString_Tests
 
             // Act
             var ls = new LocalizableString(dict);
-            var json = JsonSerializer.Serialize(ls, _jsonSerializerOptions);
-            var afterJson = JsonSerializer.Deserialize<LocalizableString>(json, _jsonSerializerOptions);
+
+            var obj = new TestClass
+            {
+                Name = "name",
+                Description = ls
+            };
+            var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
+            var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(afterJson, Is.Not.Null);
-                Assert.That(afterJson.GetCurrentString("ru"), Is.EqualTo(ruText));
-                Assert.That(afterJson.GetCurrentString("en"), Is.EqualTo(enText));
+                Assert.That(afterJson.Description, Is.Not.Null);
+                Assert.That(afterJson.Description.GetCurrentString("ru"), Is.EqualTo(ruText));
+                Assert.That(afterJson.Description.GetCurrentString("en"), Is.EqualTo(enText));
             });
         }
 
@@ -89,8 +96,13 @@ namespace Core.Common.LocalizableString_Tests
             {
                 // Act
                 var ls = dict.AsLocalizableString();
+                var obj = new TestClass
+                {
+                    Name = "name",
+                    Description = ls
+                };
 
-                var json = JsonSerializer.Serialize(ls, _jsonSerializerOptions);
+                var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
             });
         }
 
