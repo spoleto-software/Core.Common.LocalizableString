@@ -40,13 +40,13 @@ namespace Core.Common.LocalizableString_Tests
 
             // Act
             var ls = new LocalizableString(dict);
-
             var obj = new TestClass
             {
                 Name = "name",
                 Description = ls
             };
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
+            Console.WriteLine(json);
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
             var description = afterJson.Description;
             var afterJsonRuText = description.GetCurrentString("ru");
