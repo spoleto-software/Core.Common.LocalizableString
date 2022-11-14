@@ -22,24 +22,7 @@ namespace Core.Common
         /// Converts Dictionary to <see cref="LocalizableString"/>.
         /// </summary>
         public static LocalizableString AsLocalizableString(this Dictionary<string, string> dict)
-        {
-            LocalizableString ls;
-            if (dict.Count == 1 &&
-                dict.TryGetValue(string.Empty, out var value))
-            {
-                ls = new LocalizableString(value);
-            }
-            else
-            {
-                ls = new LocalizableString(string.Empty);
-                foreach (var pair in dict)
-                {
-                    ls.SetString(pair.Key, pair.Value);
-                }
-            }
-
-            return ls;
-        }
+            => new(dict);
 
         /// <summary>
         /// Converts Dictionary to <see cref="LocalizableString"/>.
@@ -60,6 +43,9 @@ namespace Core.Common
                 {
                     ls.SetString(pair.Key.ToString(), pair.Value?.ToString());
                 }
+
+                if (ls.StringCurrent == null)
+                    ls.CurrentLanguageKey = ls.Languages[0];
             }
 
             return ls;

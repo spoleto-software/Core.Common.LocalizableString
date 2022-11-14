@@ -83,6 +83,9 @@ namespace Core.Common
                 {
                     SetString(pair.Key, pair.Value);
                 }
+
+                if (_stringCurrent == null)
+                    CurrentLanguageKey = Languages[0];
             }
         }
 
@@ -218,7 +221,6 @@ namespace Core.Common
         /// <returns></returns>
         public int CompareTo(string other)
         {
-
             if (other == null && _stringCurrent == null) return 0;
             if (other == null) return 1;
             if (_stringCurrent == null) return -1;
