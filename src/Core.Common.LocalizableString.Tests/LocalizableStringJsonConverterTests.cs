@@ -47,6 +47,7 @@ namespace Core.Common.LocalizableString_Tests
             };
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
             Console.WriteLine(json);
+            Console.WriteLine(ls);
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
             var description = afterJson.Description;
             var afterJsonRuText = description.GetCurrentString("ru");

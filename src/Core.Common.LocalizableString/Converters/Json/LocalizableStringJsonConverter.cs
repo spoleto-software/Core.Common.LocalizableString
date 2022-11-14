@@ -85,7 +85,7 @@ namespace Core.Common.Converters.Json
                     break;
 
                 default:
-                    throw new NotSupportedException($"LocalizableString.AsJsonCompatible returned a unexpected type: {jsonCompatible?.GetType().FullName}.");
+                    throw new NotSupportedException($"LocalizableString.AsJsonCompatible returned an unexpected type: {jsonCompatible?.GetType().FullName}.");
             }
         }
     }
