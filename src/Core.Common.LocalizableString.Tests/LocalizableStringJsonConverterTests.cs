@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using Core.Common.Converters.Json;
@@ -7,7 +6,7 @@ using Core.Common.Converters.Json;
 namespace Core.Common.LocalizableString_Tests
 {
     /// <summary>
-    /// Tests for <see cref="LocalizableString"/>.
+    /// Tests for <see cref="LocalizableStringJsonConverter"/>.
     /// </summary>
     public class LocalizableStringJsonConverterTests
     {
@@ -38,7 +37,7 @@ namespace Core.Common.LocalizableString_Tests
             };
 
             // Act
-            var ls = new  LocalizableString(dict);
+            var ls = new LocalizableString(dict);
             var json = JsonSerializer.Serialize(ls, _jsonSerializerOptions);
             var afterJson = JsonSerializer.Deserialize<LocalizableString>(json, _jsonSerializerOptions);
 
