@@ -28,9 +28,9 @@ namespace Core.Common.LocalizableString_Tests
         public void DeserializeCorrectLocalizableString()
         {
             // Arrange
-            var ruText = "Текст на русском";
+            var ruText = "Текст на Русском";
             var enText = "Text in English";
-            var esText = "Texto en español";
+            var esText = "Texto en Español";
             var dict = new Dictionary<string, string>
             {
                 { "ru", ruText },
@@ -49,13 +49,16 @@ namespace Core.Common.LocalizableString_Tests
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
             var description = afterJson.Description;
+            var afterJsonRuText = description.GetCurrentString("ru");
+            var afterJsonEnText = description.GetCurrentString("en");
+            var afterJsonEsText = description.GetCurrentString("es");
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(description.GetCurrentString("ru"), Is.EqualTo(ruText));
-                Assert.That(description.GetCurrentString("en"), Is.EqualTo(enText));
-                Assert.That(description.GetCurrentString("es"), Is.EqualTo(esText));
+                Assert.That(afterJsonRuText, Is.EqualTo(ruText));
+                Assert.That(afterJsonEnText, Is.EqualTo(enText));
+                Assert.That(afterJsonEsText, Is.EqualTo(esText));
             });
         }
 
@@ -85,7 +88,7 @@ namespace Core.Common.LocalizableString_Tests
         public void DeserializeWrongLocalizableString()
         {
             // Arrange
-            var ruText = "Текст на русском";
+            var ruText = "Текст на Русском";
             var enText = $"Text in {LocalizableString.StartPattern}English";
             var dict = new Dictionary<string, string>
             {
