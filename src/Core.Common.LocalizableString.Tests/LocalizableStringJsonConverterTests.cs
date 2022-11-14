@@ -46,14 +46,15 @@ namespace Core.Common.LocalizableString_Tests
             };
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
+            var description = afterJson?.Description;
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(afterJson, Is.Not.Null);
-                Assert.That(afterJson.Description, Is.Not.Null);
-                Assert.That(afterJson.Description.GetCurrentString("ru"), Is.EqualTo(ruText));
-                Assert.That(afterJson.Description.GetCurrentString("en"), Is.EqualTo(enText));
+                Assert.That(description, Is.Not.Null);
+                Assert.That(description.GetCurrentString("ru"), Is.EqualTo(ruText));
+                Assert.That(description.GetCurrentString("en"), Is.EqualTo(enText));
             });
         }
 
