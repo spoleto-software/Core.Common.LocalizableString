@@ -46,10 +46,6 @@ namespace Core.Common.LocalizableString_Tests
                 Description = ls
             };
             var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
-            Console.WriteLine(json);
-            Console.WriteLine($"ls cur key: <{ls?.CurrentLanguageKey}>");
-            Console.WriteLine($"ls: <{ls}>. ls count: <{ls?.OriginalString.Length}>. ls original: <{ls?.OriginalString}>.");
-            Console.WriteLine($"dict: <{dict}>. dict count: <{dict?.Count}>.");
 
             var afterJson = JsonSerializer.Deserialize<TestClass>(json, _jsonSerializerOptions);
             var description = afterJson.Description;
@@ -82,6 +78,7 @@ namespace Core.Common.LocalizableString_Tests
             Assert.Multiple(() =>
             {
                 Assert.That(objList, Has.Count.EqualTo(2));
+                Assert.That(objList[1].Description, Is.Not.Null);
             });
         }
 
@@ -94,10 +91,12 @@ namespace Core.Common.LocalizableString_Tests
             // Arrange
             var ruText = "Текст на Русском";
             var enText = $"Text in {LocalizableString.StartPattern}English";
+            var esText = "Texto en Español";
             var dict = new Dictionary<string, string>
             {
                 { "ru", ruText },
-                { "en", enText }
+                { "en", enText },
+                { "es", esText }
             };
 
             // Assert
@@ -107,7 +106,7 @@ namespace Core.Common.LocalizableString_Tests
                 var ls = dict.AsLocalizableString();
                 var obj = new TestClass
                 {
-                    Name = "name12345",
+                    Name = "name",
                     Description = ls
                 };
 
