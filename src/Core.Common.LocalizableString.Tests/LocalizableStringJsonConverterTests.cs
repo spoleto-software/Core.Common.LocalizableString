@@ -25,7 +25,7 @@ namespace Core.Common.LocalizableString_Tests
         }
 
         [Test]
-        public void DeserializeCorrectLocalizableString()
+        public void DeserializeCorrectLocalizableString0()
         {
             // Arrange
             var ruText = "Текст на русском";
@@ -51,6 +51,7 @@ namespace Core.Common.LocalizableString_Tests
             // Assert
             Assert.Multiple(() =>
             {
+                Assert.That(ls, Is.Not.Null);
                 Assert.That(afterJson, Is.Not.Null);
                 Assert.That(description, Is.Not.Null);
                 Assert.That(description.GetCurrentString("ru"), Is.EqualTo(ruText));
