@@ -99,7 +99,7 @@ namespace Core.Common.LocalizableString_Tests
                 var ls = dict.AsLocalizableString();
                 var obj = new TestClass
                 {
-                    Name = "name123",
+                    Name = "name12345",
                     Description = ls
                 };
 
