@@ -85,7 +85,7 @@ namespace Core.Common.LocalizableString_Tests
         {
             // Arrange
             var ruText = "Текст на русском";
-            var enText = "Text in \u0010English";
+            var enText = $"Text in {LocalizableString.StartPattern}English";
             var dict = new Dictionary<string, string>
             {
                 { "ru", ruText },
