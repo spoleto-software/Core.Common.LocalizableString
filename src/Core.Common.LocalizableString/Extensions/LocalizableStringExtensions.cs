@@ -6,7 +6,7 @@ using System.Collections.Specialized;
 namespace Core.Common
 {
     /// <summary>
-    /// LocalizableString extensions
+    /// LocalizableString extensions.
     /// </summary>
     public static class LocalizableStringExtensions
     {
