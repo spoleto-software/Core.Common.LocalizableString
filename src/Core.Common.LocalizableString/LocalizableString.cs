@@ -47,7 +47,7 @@ namespace Core.Common
         public const string EndPattern = "\u0011";//NCHAR(17) is MSSQL equivalent.
 
         //"\u0010ru\u0010текст на русском\u0011\u0010en\u0010text in english\u0011\u0010il\u0010טקסט בעברית\u0011"
-        private const string Pattern = StartPattern + "([a-z]){2}" + StartPattern;
+        private const string Pattern = StartPattern + "(([a-z]){2})" + StartPattern;
 
         /// <summary>
         /// HaveMultipleLanguages
@@ -110,14 +110,6 @@ namespace Core.Common
                 _stringOriginal = s;
 
                 _stringCurrent = GetString(_stringOriginal, true);
-
-                //17.12.2014 NadymovOleg: закоментировал below код. Т.к. если в строке нет значения для DefaultLanguageKey, то будет ошибка!
-                //Например, для строки = "\u0010en\u0010text in english\u0011" и DefaultLanguageKey = "ru" будет ошибка
-                //Для этого случая просто берем первое значение. Логика в GetString.
-
-                ////Set default language to russian
-                //var matchRu = matches.Cast<Match>().First(match => match.Value.Contains(DefaultLanguageKey));
-                //_stringCurrent = s.Substring(matchRu.Index + 4, s.IndexOf(EndPattern, matchRu.Index + 4) - matchRu.Index - 4); 
             }
         }
 
@@ -553,6 +545,9 @@ namespace Core.Common
             {
                 foreach (var match in matches.Cast<Match>().OrderBy(m => (m.Value.Contains(DefaultLanguageKey) ? 1 : 2)))
                 {
+                    // sets the current language as the first language:
+                    _currentLanguageKey = match.Groups[1].Value;
+
                     return s.Substring(match.Index + 4, s.IndexOf(EndPattern, match.Index + 4, StringComparison.Ordinal) - match.Index - 4);
                 }
             }

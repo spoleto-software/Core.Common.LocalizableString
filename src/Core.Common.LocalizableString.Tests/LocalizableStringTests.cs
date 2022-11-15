@@ -45,6 +45,28 @@
         }
 
         [Test]
+        public void StringWithLanguageInConstructorWithFakeLanguageCodes()
+        {
+            // Arrange
+            var fakeLanguage1 = "rt";
+            var fakeLanguage2 = "ls";
+            var text = $"{LocalizableString.StartPattern}{fakeLanguage1}{LocalizableString.StartPattern}Текст на русском{LocalizableString.EndPattern}{LocalizableString.StartPattern}{fakeLanguage2}{LocalizableString.StartPattern}Text in English{LocalizableString.EndPattern}";
+
+            // Act
+            var ls = new LocalizableString(text);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls, Is.Not.Null);
+                Assert.That(ls.StringCurrent, Is.Not.Null);
+                Assert.That(ls.CurrentLanguageKey, Is.EqualTo(fakeLanguage1));
+                Assert.That(ls.OriginalString, Is.EqualTo(text));
+                Assert.That(text, Does.Contain(ls.StringCurrent));
+            });
+        }
+
+        [Test]
         public void DictionaryInConstructor()
         {
             // Arrange
