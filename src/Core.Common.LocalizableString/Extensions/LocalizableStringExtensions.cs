@@ -11,6 +11,16 @@ namespace Core.Common
     public static class LocalizableStringExtensions
     {
         /// <summary>
+        /// Multi-language Json friendly start pattern.
+        /// </summary>
+        public const string JsonFriendlyStartPattern = "$0010$";
+
+        /// <summary>
+        /// Multi-language Json friendly end pattern.
+        /// </summary>
+        public const string JsonFriendlyEndPattern = "$0011$";
+
+        /// <summary>
         /// Converts string to <see cref="LocalizableString"/>.
         /// </summary>
         public static LocalizableString AsLocalizableString(this string s)
@@ -98,11 +108,46 @@ namespace Core.Common
         /// </summary>
         private static void EnsureIsJsonCompatible(string str, string original)
         {
+            if (str.IndexOf(LocalizableString.StartPattern, StringComparison.Ordinal) >= 0
+                && str.IndexOf(LocalizableString.EndPattern, StringComparison.Ordinal) >= 0)
+            {
+                str = StringReplace(str, LocalizableString.StartPattern, JsonFriendlyStartPattern);
+                str = StringReplace(str, LocalizableString.EndPattern, JsonFriendlyEndPattern);
+
+                original = StringReplace(original, LocalizableString.StartPattern, JsonFriendlyStartPattern);
+                original = StringReplace(original, LocalizableString.EndPattern, JsonFriendlyEndPattern);
+
+                throw new ArgumentException($"The string contains excess {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} and {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} characters in <{str}>.{Environment.NewLine}The string original: <{original}>.{Environment.NewLine}The {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} and {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} characters are replaced for JSON compatibility with symbols: {JsonFriendlyStartPattern}, {JsonFriendlyEndPattern}.");
+            }
+
             if (str.IndexOf(LocalizableString.StartPattern, StringComparison.Ordinal) >= 0)
-                throw new ArgumentException($"The string contains an excess {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} character in <{str}>.{Environment.NewLine}The string original: <{original}>.");
+            {
+                str = StringReplace(str, LocalizableString.StartPattern, JsonFriendlyStartPattern);
+
+                original = StringReplace(original, LocalizableString.StartPattern, JsonFriendlyStartPattern);
+                original = StringReplace(original, LocalizableString.EndPattern, JsonFriendlyEndPattern);
+
+                throw new ArgumentException($"The string contains an excess {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} character in <{str}>.{Environment.NewLine}The string original: <{original}>.{Environment.NewLine}The {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} and {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} characters are replaced for JSON compatibility with symbols: {JsonFriendlyStartPattern}, {JsonFriendlyEndPattern}.");
+            }
 
             if (str.IndexOf(LocalizableString.EndPattern, StringComparison.Ordinal) >= 0)
-                throw new ArgumentException($"The string contains an excess {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} character in <{str}>.{Environment.NewLine}The string original: <{original}>.");
+            {
+                str = StringReplace(str, LocalizableString.EndPattern, JsonFriendlyEndPattern);
+
+                original = StringReplace(original, LocalizableString.StartPattern, JsonFriendlyStartPattern);
+                original = StringReplace(original, LocalizableString.EndPattern, JsonFriendlyEndPattern);
+
+                throw new ArgumentException($"The string contains an excess {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} character in <{str}>.{Environment.NewLine}The string original: <{original}>.{Environment.NewLine}The {nameof(LocalizableString)}.{nameof(LocalizableString.StartPattern)} and {nameof(LocalizableString)}.{nameof(LocalizableString.EndPattern)} characters are replaced for JSON compatibility with symbols: {JsonFriendlyStartPattern}, {JsonFriendlyEndPattern}.");
+            }
+        }
+
+        private static string StringReplace(string str, string oldValue, string newValue)
+        {
+#if NETSTANDARD
+            return str.Replace(oldValue, newValue);
+#else
+            return str.Replace(oldValue, newValue, StringComparison.Ordinal);
+#endif
         }
     }
 }

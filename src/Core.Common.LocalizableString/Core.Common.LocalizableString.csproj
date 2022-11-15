@@ -44,6 +44,11 @@
         <WarningsAsErrors />
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
+        <!-- Properties for netstandard -->
+        <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    </PropertyGroup>    
+
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
         <!-- Properties for netstandard -->
         <PackageReference Include="System.Text.Json" Version="4.7.0" />
