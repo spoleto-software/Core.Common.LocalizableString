@@ -133,5 +133,25 @@ namespace Core.Common.LocalizableString_Tests
                 var objList = JsonSerializer.Deserialize<List<TestClass>>(s, _jsonSerializerOptions);
             });
         }
+
+        /// <summary>
+        /// Empty values in <see cref="LocalizableString"/>.
+        /// </summary>
+        [Test]
+        public void DeserializeObjectWithEmptyLocalizableString()
+        {
+            // Arrange
+            var s = "[" +
+                     "{\"Name\": \"test1\", \"Description\": \"_description1\"}, " +
+                     "{\"Name\": \"test2\", \"Description\": {\"ru\": \"\",  \"en\": \"\"}}" +
+                    "]";
+
+            // Act
+            var objList = JsonSerializer.Deserialize<List<TestClass>>(s, _jsonSerializerOptions);
+            var obj = objList[1];
+
+            // Assert
+            Assert.That(obj.Description.Languages, Has.Count.EqualTo(2));
+        }
     }
 }

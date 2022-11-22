@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Text;
 
 namespace Core.Common
 {
@@ -48,14 +49,17 @@ namespace Core.Common
             }
             else
             {
-                ls = new LocalizableString(string.Empty);
+                var sb = new StringBuilder();
                 foreach (DictionaryEntry pair in dict)
                 {
-                    ls.SetString(pair.Key.ToString(), pair.Value?.ToString());
+                    sb.Append(LocalizableString.StartPattern)
+                        .Append(pair.Key)
+                        .Append(LocalizableString.StartPattern)
+                        .Append(pair.Value?.ToString())
+                        .Append(LocalizableString.EndPattern);
                 }
 
-                if (ls.StringCurrent == null)
-                    ls.CurrentLanguageKey = ls.Languages[0];
+                return new LocalizableString(sb.ToString());
             }
 
             return ls;

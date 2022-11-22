@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Core.Common
@@ -78,14 +79,16 @@ namespace Core.Common
             }
             else
             {
-                _stringOriginal = _stringCurrent = string.Empty;
+                var sb = new StringBuilder();
                 foreach (var pair in dictionary)
                 {
-                    SetString(pair.Key, pair.Value);
+                    sb.Append(StartPattern)
+                        .Append(pair.Key)
+                        .Append(StartPattern).Append(pair.Value)
+                        .Append(EndPattern);
                 }
 
-                if (_stringCurrent == null)
-                    CurrentLanguageKey = Languages[0];
+                ProcessOriginalString(sb.ToString());
             }
         }
 
@@ -253,10 +256,6 @@ namespace Core.Common
 
             return ((IComparable)_stringCurrent).CompareTo(obj.ToString());
         }
-
-
-
-
 
         #region interface delegation
         /// <summary>
