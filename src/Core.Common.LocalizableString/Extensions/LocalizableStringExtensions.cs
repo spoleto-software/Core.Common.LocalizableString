@@ -103,7 +103,7 @@ namespace Core.Common
 
             var oneLanguageString = localizableString.StringCurrent;
             EnsureIsJsonCompatible(oneLanguageString, oneLanguageString);
-            
+
             return oneLanguageString;
         }
 
