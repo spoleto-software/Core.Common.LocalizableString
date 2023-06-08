@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace Core.Common.Converters.Json
 {
     /// <summary>
-    /// LocalizableStringJsonConverter based on System.Text.Json.
+    /// LocalizableStringJsonConverter based on System.Text.Json. 
     /// </summary>
     public class LocalizableStringJsonConverter : JsonConverter<LocalizableString>
     {
