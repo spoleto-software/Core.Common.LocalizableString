@@ -125,6 +125,9 @@ namespace Core.Common
             }
         }
 
+        /// <summary>
+        /// Validates the original string.
+        /// </summary>
         private static ValidationState Validate(string s)
         {
             if (!Regex.IsMatch(s, Pattern))
