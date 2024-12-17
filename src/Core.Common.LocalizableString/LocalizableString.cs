@@ -158,8 +158,6 @@ namespace Core.Common
         /// <summary>
         /// ToString for languageCode
         /// </summary>
-        /// <param name="languageCode"></param>
-        /// <returns></returns>
         public string ToString(string languageCode)
         {
             return ToString(languageCode, false);
@@ -190,8 +188,6 @@ namespace Core.Common
         /// <summary>
         /// User-defined conversion from String to LocalizableString 
         /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
         public static implicit operator LocalizableString(String s)
         {
             return new LocalizableString(s);
@@ -242,8 +238,6 @@ namespace Core.Common
         /// <summary>
         /// CompareTo
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public int CompareTo(string other)
         {
             if (other == null && _stringCurrent == null) return 0;
