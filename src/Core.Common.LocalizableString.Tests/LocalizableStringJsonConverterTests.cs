@@ -153,5 +153,51 @@ namespace Core.Common.LocalizableString_Tests
             // Assert
             Assert.That(obj.Description.Languages, Has.Count.EqualTo(2));
         }
+
+        [Test]
+        public void DeserializeObjectListWithExcessLSCharacters()
+        {
+            // Arrange
+            var language1 = "ru";
+            var language2 = "en";
+            // without the third EndPattern. Substring in string:
+            var text = $"{LocalizableString.StartPattern}{language1}{LocalizableString.StartPattern}Текст на русском{LocalizableString.EndPattern}{LocalizableString.StartPattern}{language2}{LocalizableString.StartPattern}Text in English{LocalizableString.StartPattern}{language1}{LocalizableString.StartPattern}Снова текст на русском!{LocalizableString.EndPattern}";
+            var testObjList = new List<TestClass>{
+                new() 
+                {
+                    Name = "One",
+                    Description = text
+                }
+            };
+
+            // Act
+            var json = JsonSerializer.Serialize(testObjList, _jsonSerializerOptions);
+            var afterJson = JsonSerializer.Deserialize<List<TestClass>>(json, _jsonSerializerOptions);
+
+            // Assert
+            Assert.That(afterJson[0].Description.OriginalString, Is.Not.EqualTo(text));
+            Assert.That(afterJson[0].Description.OriginalString, Is.EqualTo(text.Replace(LocalizableString.StartPattern, string.Empty).Replace(LocalizableString.EndPattern, string.Empty)));
+        }
+
+        [Test]
+        public void DeserializeObjectListWithoutMultilanguage()
+        {
+            // Arrange
+            var text = "string";
+            var testObjList = new List<TestClass>{
+                new()
+                {
+                    Name = "One",
+                    Description = text
+                }
+            };
+
+            // Act
+            var json = JsonSerializer.Serialize(testObjList, _jsonSerializerOptions);
+            var afterJson = JsonSerializer.Deserialize<List<TestClass>>(json, _jsonSerializerOptions);
+
+            // Assert
+            Assert.That(afterJson[0].Description.OriginalString, Is.EqualTo(text));
+        }
     }
 }

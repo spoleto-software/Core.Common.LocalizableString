@@ -86,19 +86,22 @@ namespace Core.Common
         /// </summary>
         public static object AsJsonCompatible(this LocalizableString localizableString)
         {
-            var languages = localizableString.Languages;
-            if (languages.Count > 0)
+            if (localizableString.HaveMultipleLanguages)
             {
-                var dict = new OrderedDictionary();
-                foreach (var language in languages)
+                var languages = localizableString.Languages;
+                if (languages.Count > 0)
                 {
-                    var currentString = localizableString.GetCurrentString(language);
-                    EnsureIsJsonCompatible(currentString, localizableString.OriginalString);
+                    var dict = new OrderedDictionary();
+                    foreach (var language in languages)
+                    {
+                        var currentString = localizableString.GetCurrentString(language);
+                        EnsureIsJsonCompatible(currentString, localizableString.OriginalString);
 
-                    dict[language] = currentString;
+                        dict[language] = currentString;
+                    }
+
+                    return dict;
                 }
-
-                return dict;
             }
 
             var oneLanguageString = localizableString.StringCurrent;

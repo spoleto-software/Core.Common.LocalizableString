@@ -16,6 +16,8 @@ namespace Core.Common
     [DataContract]
     public class LocalizableString : IComparable, ICloneable, IConvertible, IComparable<string>, IEnumerable<char>, IEnumerable, IEquatable<string>
     {
+        private enum ValidationState { SingleLanguage, ValidMultipleLanguages, InvalidMultipleLanguages }
+
         [IgnoreDataMember]
         private string _stringCurrent;
         
@@ -102,18 +104,43 @@ namespace Core.Common
         {
             if (s == null) return;
 
-            if (!Regex.IsMatch(s, Pattern))
+            var state = Validate(s);
+
+            if (state == ValidationState.SingleLanguage)
             {
                 _stringOriginal = _stringCurrent = s;
                 _haveMultipleLanguages = false;
             }
-            else
+            else if (state == ValidationState.ValidMultipleLanguages)
             {
                 _haveMultipleLanguages = true;
                 _stringOriginal = s;
 
                 _stringCurrent = GetString(_stringOriginal, true);
             }
+            else
+            {
+                _stringOriginal = _stringCurrent = s.Replace(StartPattern, string.Empty).Replace(EndPattern, string.Empty);
+                _haveMultipleLanguages = false;
+            }
+        }
+
+        private static ValidationState Validate(string s)
+        {
+            if (!Regex.IsMatch(s, Pattern))
+            {
+                return ValidationState.SingleLanguage;
+            }
+
+            var countStartPatterns = s.CountSubstring(StartPattern);
+            var countEndPatterns = s.CountSubstring(EndPattern);
+            if (countStartPatterns == countEndPatterns * 2)
+            {
+                return ValidationState.ValidMultipleLanguages;
+            }
+
+            return ValidationState.InvalidMultipleLanguages;
+
         }
 
         /// <summary>
@@ -525,13 +552,9 @@ namespace Core.Common
         /// <summary>
         /// GetString
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="getFirstValueIfNotExists"></param>
-        /// <param name="codeLanguage"></param>
-        /// <returns></returns>
         private string GetString(string s, bool getFirstValueIfNotExists = false, string codeLanguage = null)
         {
-            if (codeLanguage == null) codeLanguage = CurrentLanguageKey;
+            codeLanguage ??= CurrentLanguageKey;
 
             var matches = Regex.Matches(s, Pattern);
 

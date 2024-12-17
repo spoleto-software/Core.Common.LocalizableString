@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net7.0;netstandard2.0</TargetFrameworks>
         <AssemblyName>Core.Common.LocalizableString</AssemblyName>
         <RootNamespace>Core.Common.LocalizableString</RootNamespace>
         <Title>Core.Common.LocalizableString</Title>
@@ -51,7 +51,7 @@
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
         <!-- Properties for netstandard -->
-        <PackageReference Include="System.Text.Json" Version="7.0.2" />
+        <PackageReference Include="System.Text.Json" Version="8.0.5" />
     </ItemGroup>
 
     <ItemGroup>

@@ -128,5 +128,26 @@
                 Assert.That(ls.GetCurrentString("en"), Is.EqualTo(enText));
             });
         }
+
+        [Test]
+        public void StringWithLanguageInConstructorWithTwoSameLanguageCodes()
+        {
+            // Arrange
+            var language1 = "ru";
+            var language2 = "en";
+            var text = $"{LocalizableString.StartPattern}{language1}{LocalizableString.StartPattern}Текст на русском{LocalizableString.EndPattern}{LocalizableString.StartPattern}{language2}{LocalizableString.StartPattern}Text in English{LocalizableString.EndPattern}{LocalizableString.StartPattern}{language1}{LocalizableString.StartPattern}Снова текст на русском!{LocalizableString.EndPattern}";
+
+            // Act
+            var ls = new LocalizableString(text);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(ls, Is.Not.Null);
+                Assert.That(ls.StringCurrent, Is.Not.Null);
+                Assert.That(ls.OriginalString, Is.EqualTo(text));
+                Assert.That(text, Does.Contain(ls.StringCurrent));
+            });
+        }
     }
 }
