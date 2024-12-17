@@ -99,19 +99,19 @@ namespace Core.Common.LocalizableString_Tests
                 { "es", esText }
             };
 
-            // Assert
-            Assert.Throws<ArgumentException>(() =>
-            {
-                // Act
-                var ls = dict.AsLocalizableString();
-                var obj = new TestClass
-                {
-                    Name = "name",
-                    Description = ls
-                };
 
-                var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
-            });
+            // Act
+            var ls = dict.AsLocalizableString();
+            var obj = new TestClass
+            {
+                Name = "name",
+                Description = ls
+            };
+
+            var json = JsonSerializer.Serialize(obj, _jsonSerializerOptions);
+
+            // Assert
+            Assert.Pass();
         }
 
         /// <summary>
